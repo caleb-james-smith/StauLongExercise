@@ -1,93 +1,176 @@
 # SUS PAG Long Exercise
 
+## Introduction
+
+The goal of this exercise is to search for stau pair production in 2022 data. The final state consists of 2 nonresonant taus and MET from the LSP. The analysis has not been done with Run-3 data yet, you are the first ones to do it! We will analyze the final state with a muon (coming from a leptonic tau decay) and a hadronic tau.
+
+Question: What is the branching fraction for the mu+tauh final state?
+
+Question: Why do we choose the mu+tauh final state to start with?
+
+Question: What do you expect the backgrounds to be? What selection could reduce them?
 
 
-## Getting started
+## Prerequisites
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+For these exercises, you need to bring your laptop, have a working lxplus account, and have a valid grid certificate.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+The code snippets below describe the steps to follow to login and set up the necessary working area for this twiki. The requirements described in Prerequisites are necessary to proceed to this step.
 
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+Login on lxplus:
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.cern.ch/cmsdas-cern-2024/sus-pag-long-exercise.git
-git branch -M master
-git push -uf origin master
+ssh -Y yourusername@lxplus.cern.ch
 ```
 
-## Integrate with your tools
+Create a working directory in your nobackup area:
 
-- [ ] [Set up project integrations](https://gitlab.cern.ch/cmsdas-cern-2024/sus-pag-long-exercise/-/settings/integrations)
+```
+mkdir SUSLongExercise
+cd SUSLongExercise
+```
 
-## Collaborate with your team
+Connect to the grid:
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+```
+voms-proxy-init -voms cms --valid 192:0
+```
 
-## Test and Deploy
+Follow the instructions in the README to set up the code. All the places in the code you should modify have a comment starting with CHANGE.
 
-Use the built-in continuous integration in GitLab.
+## Wednesday: Part 1 - Make flat trees from NanoAOD
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+The goal of this part is to make flat trees with a basic preselection (events with one muon and one hadronic tau passing the single muon trigger), saving the variables needed to perform the analysis.The flat trees will allow you to be very flexible with the analysis, reanalyzing data with different cuts or observables in only a few minutes.
 
-***
+You will learn how to run on NanoAOD files, submit the jobs to condor, and implement POG-provided scale factors with correctionlib.
 
-# Editing this README
+### Part 1.1: Running the example
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+Run the basic existing code locally on a Drell-Yan file (instructions in this README) and inspect the output file.
 
-## Suggestions for a good README
+### Part 1.2: Add lepton variables to the flat tree
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+Add the branches that will be necessary for the rest of the analysis (modify this code). We suggest this minimal list with the following naming convention:
 
-## Name
-Choose a self-explaining name for your project.
+- LepCand\_taudm
+- LepCand\_tauvsjet2018 (2018v2p5 training)
+- LepCand\_tauvsmu2018
+- LepCand\_tauvse2018
+- LepCand\_gen (genPartFlav)
+- LepCand\_phi
+- LepCand\_eta
+- LepCand\_charge
+- LepCand\_dxy
+- LepCand\_dz 
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+The documentation of the NanoAODv12 branches is available here.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+### Part 1.3: Save other NanoAOD collections/objects
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Save some NanoAOD variables you want to use later and do not need any analysis-specific processing (edit keep\_in and keep\_out). The minimal set to save is:
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+```
+    PuppiMET pt and phi
+    Single muon HLT path (HLT_IsoMu24) 
+```
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### Part 1.4: Refine the object preselection:
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+To reduce the size of the output files and simplify the event processing later, apply a preselection on the muons and taus you keep for further analysis (edit this code).
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+For muons:
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+- pT > 10 GeV
+- abs(eta) < 2.4
+- medium muon ID
+- PF relative iso < 0.15 
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+For taus (loose preselection so we can play with the tau ID WPs later):
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+- pT > 20 GeV
+- abs(eta) < 2.3
+- (VVVLoose DNN2017 vs jet and VVVLoose DNN2017 vs e and VLoose DNN2017 vs mu) OR (VVVLoose DNN2018 vs jet and VVVLoose DNN2018 vs e and VLoose DNN2018 vs mu)
+- DM 0, 1, 10, or 11
+- abs(dz) < 0.2 
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+### Part 1.5: Add scale factors using correctionlib
 
-## License
-For open source projects, say how it is licensed.
+We will need to apply data/MC scale factors for the tau identification efficiency, the tau energy scale, the muon ID/iso efficiency, and the trigger efficiency. It is easier to add them at this stage in dedicated branches using correctionlib in python.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Add the following branches:
+
+- LepCand\_tauvsjet2018\_sf
+- LepCand\_tauvsmu2018\_sf
+- LepCand\_tauvse2018\_sf 
+
+### Part 1.6: Submit the jobs to condor
+
+First inspect the output obtained from running locally to make sure it is correctly filled and you have all the necessary information stored. Then follow the instructions in the README. Dont forget to edit runNtuplizer with the output location and the final state, and EraConfig based on whether you process data (json file selection) or MC (no json file selection).
+
+## Part 2: Analyze the flat trees and make datacards
+
+### Part 2.1: Apply the selection in the mutau final state and make data distributions
+
+Apply the final selection to the flat trees in this code:
+
+- single muon trigger (HLT_IsoMu24)
+- muon pT > 26 GeV
+- abs(muon eta) < 2.4
+- tau pT > 30 GeV (can be lowered to 20 GeV but more backgrounds)
+- abs(tau eta) < 2.3
+- tau ID: Medium DNN vs jet, VVLoose DNN vs e, Tight DNN vs muons
+- muon and tau have opposite sign (OS) charge
+- DR(muon, tau) > 0.5
+- muon ID and iso already applied when building the flat trees
+- muon dxy < 0.1
+- abs(muon dz) < 0.2 
+
+Dont forget to define all the variables you have added to the flat trees in this code.
+
+Fill histograms for the data (invariant mass of mutau, muon pt, tau pt, transverse mass between the muon and the MET, ...).
+
+### Part 2.2: Do the same for MC
+
+Use the same code to make MC histograms, but add the cross section reweighting. You can use the following cross sections:
+
+- TTTo2L2Nu: 923.6 pb x 0.1061
+- WW: 120 pb
+- DY: 6345.99 pb 
+
+The integrated luminosity for the 2022 postEE dataset is aboyt 20 fb-1 (exact value in the code).
+
+Apply the data/MC scale factors saved as branches.
+
+Make a plot to compare the data and MC predictions using this code. We are missing background events with jet->tau fakes.
+
+### Part 2.3: Estimate the jet->tau fake background
+
+We will use a data-driven background estimation method to estimate processes with a jet faking a tauh because simulations are not available or too small, and we do not trust simulations to model correctly the jet->tauh fake rate.
+
+Question: What processes with jet->tauh fakes contribute to the mutau final state? Which ones do you expect to dominate?
+
+We are going to use a fake rate method. We need to measure the probability for jets that pass a very loose tau ID selection to also pass the nominal tau ID selection, so that we can reweigh events with anti-isolated taus to model the fake background in the signal region. The fake rates are measured in regions enriched in fake events (depleted in Z->tautau events, which have real tauh) and orthogonal to the signal region. We will use events with SS muon and tau. In this CR, do the following:
+
+- Fill a histogram with the pt of the tau for events where the tau passes the VVVLoose DNN vs jets but fails the Medium DNN vs jets (or the WP chosen in the earlier step) = denominator
+- Do the same for control region events with a tau passing the Medium DNN vs jets (or the WP chosen) = numerator
+- Compute the ratio of the two histograms; this is the fake rate (take a flat number or fit the tau pt dependence)
+- Select data events that pass the signal region selection except that the tau passes the VVVLoose DNN vs jets but fails the Medium DNN vs jets, and reweigh them with the fake rate of step 3.. This gives you the fake background prediction in the signal region
+- This can be refined by subtracting the contribution of MC with real taus in the control regions, weighted with the same fake rates. 
+- Since this estimates all events with a jet faking a tauh, veto those events in the MC simulation (gen = 0). 
+
+### Part 2.4 (bonus): Separate Z->mumu from Z->tautau
+
+In the DY simulation, we have Z->tautau events, but also Z->mumu events where a muon fakes a tau. The latter contribution has a distinctive signature in the dimuon mass distribution (narrow peak at 90 GeV). We want to measure the tau ID efficiency for real taus, and therefore we want to separate the two contributions in two different histograms. The two contributions can be separated based on the gen ID of the tau. Please make two separate histograms and plot them with different colors.
+
+### Part 2.5: Optimize the analysis
+
+Compare distributions of different variables between the signal and the dominant backgrounds, and choose which variables to cut on and which variable to use as observable to extract the results.
+
+## Part 3: Use Combine to extract the expected limits
+
+Install CombineHarvester and Combine in a separate area following these instructions.
+
+To run Combine for this analysis you need a mutau datacard. In the datacard, you need a directory per signal region (e.g. OSiso), and inside the directory a histogram per process (data has to be called "data_obs", the naming convention for other processes is free).
+
+## Part 4: Use ReAna to make this analysis reinterpretable 
+
