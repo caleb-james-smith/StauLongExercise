@@ -202,10 +202,11 @@ class Analysis(Module):
               lep_tauvsmu.append(-1)
               lep_taudm.append(-1)
 
+           #CHANGE fill the tau ID SFs
            if lep.id==15 and self.isMC:
-              lep_tauvsjet2018_sf.append(self.corr1.evaluate(lep.pt,lep.decayMode,lep.genPartFlav,"Medium","VVLoose","nom","dm"))
-              lep_tauvsmu2018_sf.append(self.corr2.evaluate(lep.eta,lep.genPartFlav,"Tight","nom"))
-              lep_tes.append(self.corr3.evaluate(lep.pt,lep.eta,lep.decayMode,lep.genPartFlav,"DeepTau2018v2p5","Medium","VVLoose","nom"))
+              lep_tauvsjet2018_sf.append(1.0)
+              lep_tauvsmu2018_sf.append(1.0)
+              lep_tes.append(1.0)
            else:
               lep_tauvsjet2018_sf.append(1.0)
               lep_tauvsmu2018_sf.append(1.0)

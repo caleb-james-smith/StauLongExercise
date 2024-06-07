@@ -7,7 +7,7 @@ Code to analyze the flat trees and make plots and datacards.
 ```
 mkdir output_mutau_2022
 ./Make.sh FinalSelection_mutau.cc
-./FinalSelection_mutau.exe 2022 /eos/cms/store/cmst3/user/YOURUSERNAME/long-ex-ztt/ntuples_mutau_2022/Muon2022F.root output_mutau_2022/Muon2022F.root data_obs data_obs
+./FinalSelection_mutau.exe 2022 /eos/user/c/cmsdas/2024/long_ex_sus/ntuples_mutau_2022/Muon2022F.root output_mutau_2022/Muon2022F.root data_obs data_obs
 ```
 
 ## To make a data/MC plot from a datacard
