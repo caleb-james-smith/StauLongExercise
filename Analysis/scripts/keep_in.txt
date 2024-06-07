@@ -1,0 +1,16 @@
+# this is a comment
+drop *
+
+#keep event info
+keep run*
+keep event*
+keep luminosityBlock*
+
+#keep objects
+keep MET*
+keep Tau*
+keep Muon*
+keep Electron*
+keep Jet*
+keep PV_*
+# CHANGE keep HLT_IsoMu24 trigger decision and Puppi MET (PuppiMET_pt, PuppiMET_phi)

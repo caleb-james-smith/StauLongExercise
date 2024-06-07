@@ -1,0 +1,15 @@
+# this is a comment
+drop *
+
+#keep event info
+keep run*
+keep event*
+keep luminosityBlock*
+
+#keep nanoAOD content
+# CHANGE keep HLT_IsoMu24 trigger decision and Puppi MET (PuppiMET_pt, PuppiMET_phi)
+
+#keep custom variables
+keep nLepCand
+keep LepCand*
+keep nJets
