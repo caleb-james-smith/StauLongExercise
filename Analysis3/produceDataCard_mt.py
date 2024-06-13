@@ -34,7 +34,7 @@ cb.cp().process({"DY", "TTTo2L2Nu", "WW"}).AddSyst(cb, 'lumi_13TeV', 'lnN', ch.S
 cb.cp().process({"DY", "TTTo2L2Nu", "WW"}).AddSyst(cb, "CMS_eff_m", "lnN", ch.SystMap()(1.02));
 cb.cp().process({"DY", "TTTo2L2Nu", "WW"}).AddSyst(cb, "CMS_eff_t", "lnN", ch.SystMap()(1.08));
 
-#CHANGE 5: Add a flat 1.5 log normal systematic uncertainty for the reducible background
+#CHANGE 5: Add a flat 50% log normal systematic uncertainty for the reducible background
 
 print '>> Extracting histograms from input root files...'
 for chn in chns:
