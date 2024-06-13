@@ -63,6 +63,6 @@ combine -M AsymptoticLimits mt.txt
 
 Question: What is the output of this command? What do the values mean?
 
-Question: How does the obtained limit compare to the previously published results [1]? Can these results be directly compared to each other? What is the main difference?  (See: https://cms-results.web.cern.ch/cms-results/public-results/publications/SUS-21-001/, figs. 4d, 5d, and 6d). 
+Question: How does the obtained limit compare to the previously published results [1]? Can these results be directly compared to each other? What is the main difference?  ([1] https://cms-results.web.cern.ch/cms-results/public-results/publications/SUS-21-001/, figs. 4d, 5d, and 6d). 
 
 Extra task: Optimise the analysis selection, and reproduce the limit. How much does the limit improve? Why?
