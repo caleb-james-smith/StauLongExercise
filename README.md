@@ -36,7 +36,26 @@ Connect to the grid:
 voms-proxy-init -voms cms --valid 192:0
 ```
 
-Follow the instructions in the README to set up the code. All the places in the code you should modify have a comment starting with CHANGE.
+Check out the code:
+
+```
+cmsrel CMSSW_13_0_10
+cd CMSSW_13_0_10/src
+cmsenv
+
+#setup nanoAOD-tools
+git clone https://github.com/cms-nanoAOD/nanoAOD-tools.git PhysicsTools/NanoAODTools
+scram b -j 8
+
+#This package
+git clone https://github.com/cecilecaillol/SUS_ex.git
+scram b -j 8
+
+#Correctionlib
+python3 -c 'import correctionlib._core; import correctionlib.schemav2'
+```
+
+All the places in the code you should modify have a comment starting with CHANGE.
 
 ## Wednesday: Part 1 - Make flat trees from NanoAOD
 
