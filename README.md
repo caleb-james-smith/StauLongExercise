@@ -48,7 +48,7 @@ git clone https://github.com/cms-nanoAOD/nanoAOD-tools.git PhysicsTools/NanoAODT
 scram b -j 8
 
 #This package
-git clone https://github.com/cecilecaillol/SUS_ex.git
+git clone https://gitlab.cern.ch/cmsdas-cern-2024/sus-pag-long-exercise.git
 scram b -j 8
 
 #Correctionlib
