@@ -8,7 +8,7 @@ import correctionlib as _core
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collection
 
-from sus_pag_long_exercise.Analysis.objectSelector import ElectronSelector, MuonSelector, TauSelector
+from StauLongExercise.Analysis.objectSelector import ElectronSelector, MuonSelector, TauSelector
 
 class Analysis(Module):
     def __init__(self, channel, isMC):
@@ -17,16 +17,22 @@ class Analysis(Module):
 
         # Read tau corrections
         #https://gitlab.cern.ch/cms-tau-pog/jsonpog-integration/-/blob/TauPOG_v2_deepTauV2p5/POG/TAU/README.md#usage?ref_type=heads
+        
+        # CHANGE: Update file path based on your working area.
         #self.cset = _core.CorrectionSet.from_file("/afs/cern.ch/work/c/ccaillol/DAS/CMSSW_13_0_10/src/SUS_ex/Analysis/tau_DeepTau2018v2p5_2022_postEE.json")
-        self.cset = _core.CorrectionSet.from_file("/afs/cern.ch/work/c/caleb/CMSDAS_2025/SUSLongExercise/CMSSW_13_0_10/src/sus_pag_long_exercise/Analysis/tau_DeepTau2018v2p5_2022_postEE.json")
+        self.cset = _core.CorrectionSet.from_file("/afs/cern.ch/work/c/caleb/CMSDAS_2025/SUSLongExercise/CMSSW_13_0_10/src/StauLongExercise/Analysis/tau_DeepTau2018v2p5_2022_postEE.json")
+        
         self.corr1 = self.cset["DeepTau2018v2p5VSjet"]
         self.corr2 = self.cset["DeepTau2018v2p5VSmu"]
         self.corr3 = self.cset["tau_energy_scale"]
 
         # Read muon corrections
         #https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/tree/master/POG/MUO?ref_type=heads
+        
+        # CHANGE: Update file path based on your working area.
         #self.cset2 = _core.CorrectionSet.from_file("/afs/cern.ch/work/c/ccaillol/DAS/CMSSW_13_0_10/src/SUS_ex/Analysis/muon_Z.json")
-        self.cset2 = _core.CorrectionSet.from_file("/afs/cern.ch/work/c/caleb/CMSDAS_2025/SUSLongExercise/CMSSW_13_0_10/src/sus_pag_long_exercise/Analysis/muon_Z.json")
+        self.cset2 = _core.CorrectionSet.from_file("/afs/cern.ch/work/c/caleb/CMSDAS_2025/SUSLongExercise/CMSSW_13_0_10/src/StauLongExercise/Analysis/muon_Z.json")
+        
         self.corr4 = self.cset2["NUM_MediumID_DEN_TrackerMuons"]
         self.corr5 = self.cset2["NUM_TightPFIso_DEN_MediumID"]
         self.corr6 = self.cset2["NUM_IsoMu24_DEN_CutBasedIdMedium_and_PFIsoMedium"]
