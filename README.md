@@ -17,10 +17,10 @@ For these exercises, you need to bring your laptop, have a working lxplus accoun
 
 The code snippets below describe the steps to follow to login and set up the necessary working area for this twiki. The requirements described in Prerequisites are necessary to proceed to this step.
 
-Login on lxplus:
+Login on lxplus (replace `<user>` with your user name):
 
 ```
-ssh -Y yourusername@lxplus.cern.ch
+ssh -Y <user>@lxplus.cern.ch
 ```
 
 Create a working directory in your nobackup area:
@@ -30,28 +30,35 @@ mkdir SUSLongExercise
 cd SUSLongExercise
 ```
 
-Connect to the grid:
+Initialize grid certificate:
 
 ```
-voms-proxy-init -voms cms --valid 192:0
+voms-proxy-init --valid 192:00 -voms cms
+```
+
+Confirm valid grid certificate:
+
+```
+voms-proxy-info
 ```
 
 Check out the code:
 
 ```
+# set up CMSSW
 cmsrel CMSSW_13_0_10
 cd CMSSW_13_0_10/src
 cmsenv
 
-#setup nanoAOD-tools
+# set up nanoAOD-tools
 git clone https://github.com/cms-nanoAOD/nanoAOD-tools.git PhysicsTools/NanoAODTools
 scram b -j 8
 
-#This package
-git clone https://gitlab.cern.ch/cmsdas-cern-2024/sus-pag-long-exercise.git
+# set up this long exercise
+git clone https://github.com/caleb-james-smith/StauLongExercise.git
 scram b -j 8
 
-#Correctionlib
+# test correctionlib
 python3 -c 'import correctionlib._core; import correctionlib.schemav2'
 ```
 
