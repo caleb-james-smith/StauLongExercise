@@ -13,21 +13,22 @@ Question: What do you expect the backgrounds to be? What selection could reduce 
 
 ## Prerequisites
 
-For these exercises, you need to bring your laptop, have a working lxplus account, and have a valid grid certificate.
+For these exercises, you need to bring your laptop, have a working lpc account, and have a valid grid certificate.
 
 The code snippets below describe the steps to follow to login and set up the necessary working area for this twiki. The requirements described in Prerequisites are necessary to proceed to this step.
 
-Login on lxplus:
+Login on cmslpc:
 
 ```
-ssh -Y yourusername@lxplus.cern.ch
+kinit yourusername@FNAL.GOV
+ssh -Y yourusername@cmslpc-el9.fnal.gov
 ```
 
 Create a working directory in your nobackup area:
 
 ```
-mkdir SUSLongExercise
-cd SUSLongExercise
+mkdir StauLongExercise
+cd StauLongExercise
 ```
 
 Connect to the grid:
@@ -48,7 +49,7 @@ git clone https://github.com/cms-nanoAOD/nanoAOD-tools.git PhysicsTools/NanoAODT
 scram b -j 8
 
 #This package
-git clone https://gitlab.cern.ch/cmsdas-cern-2024/sus-pag-long-exercise.git
+git clone https://github.com/caleb-james-smith/StauLongExercise.git StauLongExercise
 scram b -j 8
 
 #Correctionlib
@@ -157,7 +158,7 @@ Apply the final selection to the flat trees in FinalSelection\_mutau.cc:
 - muon and tau have opposite sign (OS) charge
 - DR(muon, tau) > 0.5
 - muon ID and iso already applied when building the flat trees
-- muon dxy < 0.1
+- abs(muon dxy) < 0.1
 - abs(muon dz) < 0.2 
 
 Fill histograms to inspect the data (invariant mass of mutau, muon pt, tau pt, transverse mass between the muon and the MET, ...).
