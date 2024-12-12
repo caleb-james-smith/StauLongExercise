@@ -4,22 +4,22 @@
 
 CMSDAS@LPC Stau Long Exercise:
 
-* Long exercise twiki
-* CMSDAS@CERN 2024 exercise
-* NanoAOD variables
-* Using EOS at LPC
-* Using git, markdown, ssh keys, etc.
+* Long exercise twiki (FIXME)
+* [CMSDAS@CERN 2024 exercise](https://gitlab.cern.ch/cmsdas-cern-2024/sus-pag-long-exercise)
+* [NanoAOD variables](https://cms-nanoaod-integration.web.cern.ch/autoDoc/)
+* [Using EOS at LPC](https://uscms.org/uscms_at_work/computing/LPC/usingEOSAtLPC.shtml)
+* [Using git, markdown, ssh keys, etc.](https://github.com/caleb-james-smith/git-commands)
 
 CMS Run 2 publication (CMS-SUS-21-001):
 
-* Info
-* CADI
-* arXiv
-* PhysRevD
+* [Info](https://cms-results.web.cern.ch/cms-results/public-results/publications/SUS-21-001/)
+* [CADI](https://cms.cern.ch/iCMS/analysisadmin/cadilines?line=SUS-21-001)
+* [arXiv](https://arxiv.org/abs/2207.02254)
+* [PhysRevD](https://journals.aps.org/prd/abstract/10.1103/PhysRevD.108.012011)
 
 ## Introduction
 
-This long exercise for CMSDAS@LPC is an adaptation of the CMSDAS@CERN 2024 long exercise here.
+This long exercise for CMSDAS@LPC is an adaptation of the CMSDAS@CERN 2024 long exercise [here](https://gitlab.cern.ch/cmsdas-cern-2024/sus-pag-long-exercise).
 The goal of this long exercise is to search for stau pair production in 2022 data.
 The final state consists of 2 nonresonant taus and MET from the LSP.
 The analysis has not been done with Run-3 data yet, you are the first ones to do it!
