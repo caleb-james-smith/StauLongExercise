@@ -2,7 +2,10 @@
 
 ## Introduction
 
-The goal of this exercise is to search for stau pair production in 2022 data. The final state consists of 2 nonresonant taus and MET from the LSP. The analysis has not been done with Run-3 data yet, you are the first ones to do it! We will analyze the final state with a muon (coming from a leptonic tau decay) and a hadronic tau.
+The goal of this long exercise is to search for stau pair production in 2022 data.
+The final state consists of 2 nonresonant taus and MET from the LSP.
+The analysis has not been done with Run-3 data yet, you are the first ones to do it!
+We will analyze the final state with a muon (coming from a leptonic tau decay) and a hadronic tau.
 
 Question: What is the branching fraction for the mu+tauh final state?
 
@@ -13,46 +16,50 @@ Question: What do you expect the backgrounds to be? What selection could reduce 
 
 ## Prerequisites
 
-For these exercises, you need to bring your laptop, have a working lpc account, and have a valid grid certificate.
+The requirements described in Prerequisites are necessary and should be completed before proceeding to the next steps.
 
-The code snippets below describe the steps to follow to login and set up the necessary working area for this twiki. The requirements described in Prerequisites are necessary to proceed to this step.
+For this long exercise, you need to bring your laptop, have a working cmslpc account, and have a valid grid certificate.
 
-Login on cmslpc:
+The code snippets below describe the steps to follow to login and set up the necessary working area for this long exercise.
 
-```
-kinit yourusername@FNAL.GOV
-ssh -Y yourusername@cmslpc-el9.fnal.gov
-```
-
-Create a working directory in your nobackup area:
+Login on cmslpc-el9 (replace `<user>` with your user name):
 
 ```
-mkdir StauLongExercise
-cd StauLongExercise
+kinit <user>@FNAL.GOV
+ssh -Y <user>@cmslpc-el9.fnal.gov
 ```
 
-Connect to the grid:
+Create a working directory in your `~/nobackup` area:
 
 ```
-voms-proxy-init -voms cms --valid 192:0
+mkdir -p ~/nobackup/CMSDAS_2025/StauLongExercise
+cd ~/nobackup/CMSDAS_2025/StauLongExercise
+```
+
+Initialize and confirm valid grid certificate:
+
+```
+voms-proxy-init --valid 192:00 -voms cms
+voms-proxy-info
 ```
 
 Check out the code:
 
 ```
+# set up CMSSW
 cmsrel CMSSW_13_0_10
 cd CMSSW_13_0_10/src
 cmsenv
 
-#setup nanoAOD-tools
+# set up nanoAOD-tools
 git clone https://github.com/cms-nanoAOD/nanoAOD-tools.git PhysicsTools/NanoAODTools
 scram b -j 8
 
-#This package
+# set up this long exercise
 git clone https://github.com/caleb-james-smith/StauLongExercise.git StauLongExercise
 scram b -j 8
 
-#Correctionlib
+# test correctionlib
 python3 -c 'import correctionlib._core; import correctionlib.schemav2'
 ```
 
