@@ -4,7 +4,7 @@
 
 CMSDAS@LPC Stau Long Exercise:
 
-* Long exercise twiki (FIXME)
+* [Stau long exercise twiki](https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideCMSDataAnalysisSchoolLPC2025StauLongExercise)
 * [CMSDAS@CERN 2024 exercise](https://gitlab.cern.ch/cmsdas-cern-2024/sus-pag-long-exercise)
 * [NanoAOD variables](https://cms-nanoaod-integration.web.cern.ch/autoDoc/)
 * [Using EOS at LPC](https://uscms.org/uscms_at_work/computing/LPC/usingEOSAtLPC.shtml)
