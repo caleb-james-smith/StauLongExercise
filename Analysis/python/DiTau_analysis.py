@@ -10,6 +10,8 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collect
 
 from StauLongExercise.Analysis.objectSelector import ElectronSelector, MuonSelector, TauSelector
 
+CMSSW = os.environ['CMSSW_BASE']
+
 class Analysis(Module):
     def __init__(self, channel, isMC):
         self.channel = channel
@@ -17,26 +19,17 @@ class Analysis(Module):
 
         # Read tau corrections
         #https://gitlab.cern.ch/cms-tau-pog/jsonpog-integration/-/blob/TauPOG_v2_deepTauV2p5/POG/TAU/README.md#usage?ref_type=heads
-        
-        # CHANGE: Update file path based on your working area.
-        #self.cset = _core.CorrectionSet.from_file("/afs/cern.ch/work/c/ccaillol/DAS/CMSSW_13_0_10/src/SUS_ex/Analysis/tau_DeepTau2018v2p5_2022_postEE.json")
-        self.cset = _core.CorrectionSet.from_file("/afs/cern.ch/work/c/caleb/CMSDAS_2025/SUSLongExercise/CMSSW_13_0_10/src/StauLongExercise/Analysis/tau_DeepTau2018v2p5_2022_postEE.json")
-        
+        self.cset = _core.CorrectionSet.from_file(CMSSW+"/src/StauLongExercise/Analysis/tau_DeepTau2018v2p5_2022_postEE.json")
         self.corr1 = self.cset["DeepTau2018v2p5VSjet"]
         self.corr2 = self.cset["DeepTau2018v2p5VSmu"]
         self.corr3 = self.cset["tau_energy_scale"]
 
         # Read muon corrections
         #https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/tree/master/POG/MUO?ref_type=heads
-        
-        # CHANGE: Update file path based on your working area.
-        #self.cset2 = _core.CorrectionSet.from_file("/afs/cern.ch/work/c/ccaillol/DAS/CMSSW_13_0_10/src/SUS_ex/Analysis/muon_Z.json")
-        self.cset2 = _core.CorrectionSet.from_file("/afs/cern.ch/work/c/caleb/CMSDAS_2025/SUSLongExercise/CMSSW_13_0_10/src/StauLongExercise/Analysis/muon_Z.json")
-        
+        self.cset2 = _core.CorrectionSet.from_file(CMSSW+"/src/StauLongExercise/Analysis/muon_Z.json")
         self.corr4 = self.cset2["NUM_MediumID_DEN_TrackerMuons"]
         self.corr5 = self.cset2["NUM_TightPFIso_DEN_MediumID"]
         self.corr6 = self.cset2["NUM_IsoMu24_DEN_CutBasedIdMedium_and_PFIsoMedium"]
-
         pass
 
     def beginJob(self):
@@ -64,7 +57,7 @@ class Analysis(Module):
         # CHANGE Add tau DNN 2018 v2p5 against jets, electrons, and muons (LepCand_tauvse2018, LepCand_tauvsmu2018, LepCand_tauvsjet2018)
         self.out.branch("LepCand_tauvsjet2018_sf",  "F",  lenVar = "nLepCand");
         self.out.branch("LepCand_tauvsmu2018_sf",  "F",  lenVar = "nLepCand");
-        self.out.branch("LepCand_tes",  "F",  lenVar = "nLepCand");
+        self.out.branch("LepCand_tauvse2018_sf",  "F",  lenVar = "nLepCand");
         self.out.branch("LepCand_muonID_sf",  "F",  lenVar = "nLepCand");
         self.out.branch("LepCand_muonIso_sf",  "F",  lenVar = "nLepCand");
         self.out.branch("LepCand_trg_sf",  "F",  lenVar = "nLepCand");
@@ -186,13 +179,15 @@ class Analysis(Module):
         # CHANGE: save and fill the 2018 v2p5 DNN outputs for the taus
         lep_tauvsjet2018_sf=[]
         lep_tauvsmu2018_sf=[]
+        lep_tauvse2018_sf=[]
         lep_muonID_sf=[]
         lep_muonIso_sf=[]
         lep_trg_sf=[]
-        lep_tes=[]
         lep_taudm=[]
         lep_gen=[]
         for lep in event.selectedLeptons:
+           # skip decayMode 5 and 6 for DeepTau from TAU POG REC: https://twiki.cern.ch/twiki/bin/view/CMS/TauIDRecommendationForRun2#Decay_Mode_Reconstruction
+           if lep.id==15 and (lep.decayMode == 5 or lep.decayMode == 6): continue
            if self.isMC:
                 lep_gen.append(lep.genPartFlav)
            else:
@@ -214,16 +209,21 @@ class Analysis(Module):
            if lep.id==15 and self.isMC:
               lep_tauvsjet2018_sf.append(1.0)
               lep_tauvsmu2018_sf.append(1.0)
-              lep_tes.append(1.0)
+              lep_tauvse2018_sf.append(1.0)
            else:
               lep_tauvsjet2018_sf.append(1.0)
               lep_tauvsmu2018_sf.append(1.0)
-              lep_tes.append(1.0)
+              lep_tauvse2018_sf.append(1.0)
 
            if lep.id==13 and self.isMC:
-               lep_trg_sf.append(self.corr6.evaluate(abs(lep.eta),lep.pt,"nominal"))
-               lep_muonID_sf.append(self.corr4.evaluate(abs(lep.eta),lep.pt,"nominal"))
-               lep_muonIso_sf.append(self.corr5.evaluate(abs(lep.eta),lep.pt,"nominal"))
+               if lep.pt < 26.:
+                   lep_trg_sf.append(self.corr6.evaluate(abs(lep.eta),26.,"nominal"))
+                   lep_muonID_sf.append(self.corr4.evaluate(abs(lep.eta),26.,"nominal"))
+                   lep_muonIso_sf.append(self.corr5.evaluate(abs(lep.eta),26.,"nominal"))
+               else:
+                   lep_trg_sf.append(self.corr6.evaluate(abs(lep.eta),lep.pt,"nominal"))
+                   lep_muonID_sf.append(self.corr4.evaluate(abs(lep.eta),lep.pt,"nominal"))
+                   lep_muonIso_sf.append(self.corr5.evaluate(abs(lep.eta),lep.pt,"nominal"))
            else:
                lep_trg_sf.append(1.0)
                lep_muonID_sf.append(1.0)
@@ -246,7 +246,7 @@ class Analysis(Module):
         # CHANGE Fill the branches with the 2018v2p5 DNNs
         self.out.fillBranch("LepCand_tauvsjet2018_sf",         lep_tauvsjet2018_sf)
         self.out.fillBranch("LepCand_tauvsmu2018_sf",         lep_tauvsmu2018_sf)
-        self.out.fillBranch("LepCand_tes",         lep_tes)
+        self.out.fillBranch("LepCand_tauvse2018_sf",         lep_tauvse2018_sf)
         self.out.fillBranch("LepCand_taudm",         lep_taudm)
         self.out.fillBranch("LepCand_gen",         lep_gen)
         self.out.fillBranch("LepCand_muonIso_sf",         lep_muonIso_sf)
