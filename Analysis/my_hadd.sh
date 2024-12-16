@@ -1,4 +1,4 @@
-OutputPath=$CMSSW_BASE/src/StauLongExercise/ntuples_mutau_2022/
+OutputPath=$CMSSW_BASE/src/cmsdas2025/
 python3 $CMSSW_BASE/src/PhysicsTools/NanoAODTools/scripts/haddnano.py $OutputPath/ntuples_mutau_2022/DY_postEE.root $OutputPath/ntuples_mutau_2022/DYJetsToLL_M-50_TuneCP5_13p6TeV-madgraphMLM-pythia8_Run3Summer22EENanoAODv12-forPOG_130X_mcRun3_2022_realistic_postEE_v6-v2_mutau/*.root
 python3 $CMSSW_BASE/src/PhysicsTools/NanoAODTools/scripts/haddnano.py $OutputPath/ntuples_mutau_2022/TTTo2L2Nu_postEE.root $OutputPath/ntuples_mutau_2022/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer22EENanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v2_mutau/*.root
 python3 $CMSSW_BASE/src/PhysicsTools/NanoAODTools/scripts/haddnano.py $OutputPath/ntuples_mutau_2022/WW_postEE.root $OutputPath/ntuples_mutau_2022/WW_TuneCP5_13p6TeV_pythia8_Run3Summer22EENanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v2_mutau/*.root
