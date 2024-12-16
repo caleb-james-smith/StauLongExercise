@@ -12,7 +12,7 @@ cmssw=os.environ['CMSSW_BASE']
 def makeSandbox(FarmDirectory,rand):
     sandbox_cmd = f"tar --exclude='CMSSW_13_0_10/src/*' --exclude-caches-all -cf {FarmDirectory}/CMSSW_13_0_10_{rand}.tar -C $CMSSW_BASE/../ CMSSW_13_0_10"
     os.system(sandbox_cmd)
-    sandbox_cmd = f"tar -rf {FarmDirectory}/CMSSW_13_0_10_{rand}.tar -C $CMSSW_BASE/../ CMSSW_13_0_10/src/PhysicsTools/ CMSSW_13_0_10/src/StauLongExercise/Analysis/python/DiTau_analysis.py CMSSW_13_0_10/src/StauLongExercise/Analysis/python/objectSelector.py CMSSW_13_0_10/src/StauLongExercise/Analysis/muon_Z.json CMSSW_13_0_10/src/StauLongExercise/Analysis/tau_DeepTau2018v2p5_2022_postEE.json"
+    sandbox_cmd = f"tar -rf {FarmDirectory}/CMSSW_13_0_10_{rand}.tar -C $CMSSW_BASE/../ CMSSW_13_0_10/src/PhysicsTools/ CMSSW_13_0_10/src/StauLongExercise/Analysis/python/DiTau_analysis.py CMSSW_13_0_10/src/StauLongExercise/Analysis/python/objectSelector.py CMSSW_13_0_10/src/StauLongExercise/Analysis/muon_Z.json CMSSW_13_0_10/src/StauLongExercise/Analysis/tau_DeepTau2018v2p5_2022_postEE.json CMSSW_13_0_10/src/StauLongExercise/Analysis/data/Cert_Collisions2022_355100_362760_Golden.json"
     os.system(sandbox_cmd)
     sandbox_cmd = f"gzip {FarmDirectory}/CMSSW_13_0_10_{rand}.tar"
     os.system(sandbox_cmd)

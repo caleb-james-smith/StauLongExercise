@@ -14,7 +14,6 @@ ANALYSISGRL = {
     '2022': 'Cert_Collisions2022_355100_362760_Golden.json'
 }
 
-cmssw=os.environ['CMSSW_BASE']
 ANALYSISCUT={'': {'mutau' : '-c "%s"'%ANALYSISCHANNELCUT['mutau'],'mumu' : '-c "%s"'%ANALYSISCHANNELCUT['mumu']}}
 
 # CHANGE uncomment if running on data and comment next section
@@ -23,7 +22,7 @@ ANALYSISCUT={'': {'mutau' : '-c "%s"'%ANALYSISCHANNELCUT['mutau'],'mumu' : '-c "
 #for y in ANALYSISTRIGGER:
 #  ANALYSISCUT[y]={}
 #  for c in ANALYSISTRIGGER[y]:
-#    ANALYSISCUT[y][c]='--cut %s&&%s --json %s'%(ANALYSISTRIGGER[y][c],ANALYSISCHANNELCUT[c],cmssw+'/src/SUS_ex/Analysis/data/'+ANALYSISGRL[y])
+#    ANALYSISCUT[y][c]='--cut %s&&%s --json %s'%(ANALYSISTRIGGER[y][c],ANALYSISCHANNELCUT[c],'./StauLongExercise/Analysis/data/'+ANALYSISGRL[y])
 
 ## for MC, no json
 for y in ANALYSISTRIGGER:
