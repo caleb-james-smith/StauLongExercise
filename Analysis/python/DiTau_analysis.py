@@ -23,6 +23,7 @@ class Analysis(Module):
         self.corr1 = self.cset["DeepTau2018v2p5VSjet"]
         self.corr2 = self.cset["DeepTau2018v2p5VSmu"]
         self.corr3 = self.cset["tau_energy_scale"]
+        self.corr7 = self.cset["DeepTau2018v2p5VSe"]
 
         # Read muon corrections
         #https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/tree/master/POG/MUO?ref_type=heads
@@ -55,6 +56,9 @@ class Analysis(Module):
         self.out.branch("LepCand_tauvsmu",   "I",  lenVar = "nLepCand");
         self.out.branch("LepCand_tauvsjet",  "I",  lenVar = "nLepCand");
         # CHANGE Add tau DNN 2018 v2p5 against jets, electrons, and muons (LepCand_tauvse2018, LepCand_tauvsmu2018, LepCand_tauvsjet2018)
+        self.out.branch("LepCand_tauvsjet2018",  "F",  lenVar = "nLepCand");
+        self.out.branch("LepCand_tauvsmu2018",  "F",  lenVar = "nLepCand");
+        self.out.branch("LepCand_tauvse2018",  "F",  lenVar = "nLepCand");
         self.out.branch("LepCand_tauvsjet2018_sf",  "F",  lenVar = "nLepCand");
         self.out.branch("LepCand_tauvsmu2018_sf",  "F",  lenVar = "nLepCand");
         self.out.branch("LepCand_tauvse2018_sf",  "F",  lenVar = "nLepCand");
@@ -177,6 +181,9 @@ class Analysis(Module):
         lep_tauvse=[]
         lep_tauvsmu=[]
         # CHANGE: save and fill the 2018 v2p5 DNN outputs for the taus
+        lep_tauvsjet2018=[]
+        lep_tauvsmu2018=[]
+        lep_tauvse2018=[]
         lep_tauvsjet2018_sf=[]
         lep_tauvsmu2018_sf=[]
         lep_tauvse2018_sf=[]
@@ -198,18 +205,28 @@ class Analysis(Module):
               lep_tauvsjet.append(lep.idDeepTau2017v2p1VSjet)
               lep_tauvse.append(lep.idDeepTau2017v2p1VSe)
               lep_tauvsmu.append(lep.idDeepTau2017v2p1VSmu)
+              lep_tauvsjet2018.append(lep.idDeepTau2018v2p5VSjet)
+              lep_tauvse2018.append(lep.idDeepTau2018v2p5VSe)
+              lep_tauvsmu2018.append(lep.idDeepTau2018v2p5VSmu)
               lep_taudm.append(lep.decayMode)
            else:
               lep_tauvsjet.append(-1)
               lep_tauvse.append(-1)
               lep_tauvsmu.append(-1)
+              lep_tauvsjet2018.append(-1)
+              lep_tauvse2018.append(-1)
+              lep_tauvsmu2018.append(-1)
               lep_taudm.append(-1)
 
            #CHANGE fill the tau ID SFs
            if lep.id==15 and self.isMC:
-              lep_tauvsjet2018_sf.append(1.0)
-              lep_tauvsmu2018_sf.append(1.0)
-              lep_tauvse2018_sf.append(1.0)
+              # 1: jet, 2: mu, 7: e
+              val1 = self.corr1.evaluate(lep.pt,lep.decayMode,lep.genPartFlav,"Medium","VVLoose","nom","dm")
+              val2 = self.corr2.evaluate(lep.eta,lep.genPartFlav,"Medium","nom")
+              val7 = self.corr7.evaluate(lep.eta,lep.decayMode,lep.genPartFlav,"Medium","nom")
+              lep_tauvsjet2018_sf.append(val1)
+              lep_tauvsmu2018_sf.append(val2)
+              lep_tauvse2018_sf.append(val7)
            else:
               lep_tauvsjet2018_sf.append(1.0)
               lep_tauvsmu2018_sf.append(1.0)
@@ -244,6 +261,9 @@ class Analysis(Module):
         self.out.fillBranch("LepCand_tauvsmu",         lep_tauvsmu)
         self.out.fillBranch("LepCand_tauvse",         lep_tauvse)
         # CHANGE Fill the branches with the 2018v2p5 DNNs
+        self.out.fillBranch("LepCand_tauvsjet2018",         lep_tauvsjet2018)
+        self.out.fillBranch("LepCand_tauvsmu2018",         lep_tauvsmu2018)
+        self.out.fillBranch("LepCand_tauvse2018",         lep_tauvse2018)
         self.out.fillBranch("LepCand_tauvsjet2018_sf",         lep_tauvsjet2018_sf)
         self.out.fillBranch("LepCand_tauvsmu2018_sf",         lep_tauvsmu2018_sf)
         self.out.fillBranch("LepCand_tauvse2018_sf",         lep_tauvse2018_sf)
