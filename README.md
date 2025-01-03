@@ -65,6 +65,7 @@ Check out the code:
 
 ```
 # set up CMSSW
+source /cvmfs/cms.cern.ch/cmsset_default.sh
 cmsrel CMSSW_13_0_10
 cd CMSSW_13_0_10/src
 cmsenv
