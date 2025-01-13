@@ -33,9 +33,9 @@ Question: What do you expect the backgrounds to be? What selection could reduce 
 
 ## Prerequisites
 
-The requirements described in Prerequisites are necessary and should be completed before proceeding to the next steps.
-
 For this long exercise, you need to bring your laptop, have a working cmslpc account, and have a valid grid certificate.
+
+The requirements described in Prerequisites are necessary and should be completed before proceeding to the next steps.
 
 The code snippets below describe the steps to follow to login and set up the necessary working area for this long exercise.
 
