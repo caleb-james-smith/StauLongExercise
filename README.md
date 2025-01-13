@@ -22,7 +22,7 @@ CMS Run 2 publication (CMS-SUS-21-001):
 This long exercise for CMSDAS@LPC is an adaptation of the CMSDAS@CERN 2024 long exercise [here](https://gitlab.cern.ch/cmsdas-cern-2024/sus-pag-long-exercise).
 The goal of this long exercise is to search for stau pair production in 2022 data.
 The final state consists of 2 nonresonant taus and MET from the LSP.
-The analysis has not been done with Run-3 data yet, you are the first ones to do it!
+The analysis has not been done with Run 3 data yet, you are the first ones to do it!
 We will analyze the final state with a muon (coming from a leptonic tau decay) and a hadronic tau.
 
 Question: What is the branching fraction for the mu+tauh final state?
@@ -30,7 +30,6 @@ Question: What is the branching fraction for the mu+tauh final state?
 Question: Why do we choose the mu+tauh final state to start with?
 
 Question: What do you expect the backgrounds to be? What selection could reduce them?
-
 
 ## Prerequisites
 
