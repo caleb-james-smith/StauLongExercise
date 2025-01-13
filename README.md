@@ -83,7 +83,7 @@ python3 -c 'import correctionlib._core; import correctionlib.schemav2'
 
 All the places in the code you should modify have a comment starting with CHANGE.
 
-## Wednesday: Part 1 - Make flat trees from NanoAOD
+## Part 1 - Make flat trees from NanoAOD
 
 This part is based on the code in the "Analysis" folder.
 
@@ -168,7 +168,7 @@ Add the following branches:
 
 First inspect the output obtained from running locally to make sure it is correctly filled and you have all the necessary information stored. Then follow the instructions in the README. Dont forget to edit runNtuplizer with the output location and the final state, and EraConfig based on whether you process data (json file selection) or MC (no json file selection).
 
-## Thursday - Part 2: Analyze the flat trees and make datacards
+## Part 2: Analyze the flat trees and make datacards
 
 ### Part 2.1: Apply the selection in the mutau final state and make data distributions
 
@@ -221,15 +221,15 @@ We are going to use a fake rate method. We need to measure the probability for j
 
 In the DY simulation, we have Z to tautau events, but also Z to mumu events where a muon fakes a tau. The latter contribution has a distinctive signature in the dimuon mass distribution (narrow peak at 90 GeV). We want to measure the tau ID efficiency for real taus, and therefore we want to separate the two contributions in two different histograms. The two contributions can be separated based on the gen ID of the tau. Please make two separate histograms and plot them with different colors.
 
-### Friday - Part 2.5: Optimize the analysis
+### Part 2.5: Optimize the analysis
 
 Compare distributions of different variables between the signal and the dominant backgrounds, and choose which variables to cut on and which variable to use as observable to extract the results.
 
-## Friday - Part 3: Use Combine to extract the expected limits
+## Part 3: Use Combine to extract the expected limits
 
 Install CombineHarvester and Combine in a separate area following these instructions.
 
 To run Combine for this analysis you need a mutau datacard. In the datacard, you need a directory per signal region (e.g. OSiso), and inside the directory a histogram per process (data has to be called "data\_obs", the naming convention for other processes is free).
 
-## Friday - Part 4: Use ReAna to make this analysis reinterpretable 
+## Part 4: Use ReAna to make this analysis reinterpretable 
 
