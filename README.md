@@ -84,15 +84,16 @@ All the places in the code you should modify have a comment starting with CHANGE
 
 ## Part 1 - Make flat trees from NanoAOD
 
-This part is based on the code in the "Analysis" folder.
-
-The goal of this part is to make flat trees with a basic preselection (events with one muon and one hadronic tau passing the single muon trigger), saving the variables needed to perform the analysis.The flat trees will allow you to be very flexible with the analysis, reanalyzing data with different cuts or observables in only a few minutes.
-
+The goal of this part is to make flat trees with a basic preselection (events with one muon and one hadronic tau passing the single muon trigger), saving the variables needed to perform the analysis.
+The flat trees will allow you to be very flexible with the analysis, reanalyzing data with different cuts or observables in only a few minutes.
 You will learn how to run on NanoAOD files, submit the jobs to condor, and implement POG-provided scale factors with correctionlib.
+
+This part is based on the code in the "Analysis" folder [here](https://github.com/caleb-james-smith/StauLongExercise/tree/master/Analysis).
 
 ### Part 1.1: Running the example
 
-Run the basic existing code locally on a Drell-Yan file (instructions in this README) and inspect the output file.
+Run the basic existing code locally on a Drell-Yan file and inspect the output file.
+See the README in the Analysis folder [here](https://github.com/caleb-james-smith/StauLongExercise/tree/master/Analysis) for instructions.
 
 ### Part 1.2: Add lepton variables to the flat tree
 
