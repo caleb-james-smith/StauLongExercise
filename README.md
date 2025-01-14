@@ -22,7 +22,7 @@ CMS Run 2 publication (CMS-SUS-21-001):
 This long exercise for CMSDAS@LPC is an adaptation of the CMSDAS@CERN 2024 long exercise [here](https://gitlab.cern.ch/cmsdas-cern-2024/sus-pag-long-exercise).
 The goal of this long exercise is to search for stau pair production in 2022 data.
 The final state consists of 2 nonresonant taus and MET from the LSP.
-The analysis has not been done with Run-3 data yet, you are the first ones to do it!
+The analysis has not been done with Run 3 data yet, you are the first ones to do it!
 We will analyze the final state with a muon (coming from a leptonic tau decay) and a hadronic tau.
 
 Question: What is the branching fraction for the mu+tauh final state?
@@ -31,12 +31,11 @@ Question: Why do we choose the mu+tauh final state to start with?
 
 Question: What do you expect the backgrounds to be? What selection could reduce them?
 
-
 ## Prerequisites
 
-The requirements described in Prerequisites are necessary and should be completed before proceeding to the next steps.
-
 For this long exercise, you need to bring your laptop, have a working cmslpc account, and have a valid grid certificate.
+
+The requirements described in Prerequisites are necessary and should be completed before proceeding to the next steps.
 
 The code snippets below describe the steps to follow to login and set up the necessary working area for this long exercise.
 
@@ -83,17 +82,18 @@ python3 -c 'import correctionlib._core; import correctionlib.schemav2'
 
 All the places in the code you should modify have a comment starting with CHANGE.
 
-## Wednesday: Part 1 - Make flat trees from NanoAOD
+## Part 1 - Make flat trees from NanoAOD
 
-This part is based on the code in the "Analysis" folder.
+For Part 1, use the code and instructions in the "Analysis" folder [here](https://github.com/caleb-james-smith/StauLongExercise/tree/master/Analysis).
 
-The goal of this part is to make flat trees with a basic preselection (events with one muon and one hadronic tau passing the single muon trigger), saving the variables needed to perform the analysis.The flat trees will allow you to be very flexible with the analysis, reanalyzing data with different cuts or observables in only a few minutes.
-
+The goal of this part is to make flat trees with a basic preselection (events with one muon and one hadronic tau passing the single muon trigger), saving the variables needed to perform the analysis.
+The flat trees will allow you to be very flexible with the analysis, reanalyzing data with different cuts or observables in only a few minutes.
 You will learn how to run on NanoAOD files, submit the jobs to condor, and implement POG-provided scale factors with correctionlib.
 
 ### Part 1.1: Running the example
 
-Run the basic existing code locally on a Drell-Yan file (instructions in this README) and inspect the output file.
+Run the basic existing code locally on a Drell-Yan file and inspect the output file.
+See the README in the Analysis folder [here](https://github.com/caleb-james-smith/StauLongExercise/tree/master/Analysis) for instructions.
 
 ### Part 1.2: Add lepton variables to the flat tree
 
@@ -168,7 +168,9 @@ Add the following branches:
 
 First inspect the output obtained from running locally to make sure it is correctly filled and you have all the necessary information stored. Then follow the instructions in the README. Dont forget to edit runNtuplizer with the output location and the final state, and EraConfig based on whether you process data (json file selection) or MC (no json file selection).
 
-## Thursday - Part 2: Analyze the flat trees and make datacards
+## Part 2: Analyze the flat trees and make datacards
+
+For Part 2, use the code and instructions in the "Analysis2" folder [here](https://github.com/caleb-james-smith/StauLongExercise/tree/master/Analysis2).
 
 ### Part 2.1: Apply the selection in the mutau final state and make data distributions
 
@@ -221,15 +223,29 @@ We are going to use a fake rate method. We need to measure the probability for j
 
 In the DY simulation, we have Z to tautau events, but also Z to mumu events where a muon fakes a tau. The latter contribution has a distinctive signature in the dimuon mass distribution (narrow peak at 90 GeV). We want to measure the tau ID efficiency for real taus, and therefore we want to separate the two contributions in two different histograms. The two contributions can be separated based on the gen ID of the tau. Please make two separate histograms and plot them with different colors.
 
-### Friday - Part 2.5: Optimize the analysis
+### Part 2.5: Optimize the analysis
 
 Compare distributions of different variables between the signal and the dominant backgrounds, and choose which variables to cut on and which variable to use as observable to extract the results.
 
-## Friday - Part 3: Use Combine to extract the expected limits
+## Part 3: Use Combine to extract the expected limits
 
-Install CombineHarvester and Combine in a separate area following these instructions.
+For Part 3, use the code and instructions in the "Analysis3" folder [here](https://github.com/caleb-james-smith/StauLongExercise/tree/master/Analysis3).
 
-To run Combine for this analysis you need a mutau datacard. In the datacard, you need a directory per signal region (e.g. OSiso), and inside the directory a histogram per process (data has to be called "data\_obs", the naming convention for other processes is free).
+Install Combine and CombineHarvester in a separate area following the instructions [here](https://github.com/caleb-james-smith/StauLongExercise/tree/master/Analysis3).
 
-## Friday - Part 4: Use ReAna to make this analysis reinterpretable 
+Note that we are using a different CMSSW version for Combine and CombineHarvester
+compared to what we used previously for the analysis up to this point!
 
+Do NOT "nest" CMSSW installations or install them in "series," please!
+For example, your installation should NOT look like `CMSSW_1_2_3/src/CMSSW_4_5_6/src`.
+Rather, you should install them in parallel.
+For example, `CMSSW_1_2_3/src` and `CMSSW_4_5_6/src`
+should be two separate directories that are not in the same path.
+
+To run Combine for this analysis you need a mutau datacard.
+In the datacard, you need a directory per signal region (e.g. OSiso),
+and inside the directory a histogram per process (data has to be called "data\_obs", the naming convention for other processes is free).
+
+## Part 4: Use ReAna to make this analysis reinterpretable 
+
+We may attempt this if we have time...
