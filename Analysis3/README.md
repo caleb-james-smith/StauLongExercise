@@ -3,6 +3,15 @@
 First, set up a new working area (separate from what you have been using up to this point)
 to install Combine and CombineHarvester.
 
+Note that we are using a different CMSSW version for Combine and CombineHarvester
+compared to what we used previously for the analysis up to this point!
+
+Do NOT "nest" CMSSW installations or install them in "series," please!
+For example, your installation should NOT look like `CMSSW_1_2_3/src/CMSSW_4_5_6/src`.
+Rather, you should install them in parallel.
+For example, `CMSSW_1_2_3/src` and `CMSSW_4_5_6/src`
+should be two separate directories that are not in the same path.
+
 ```
 cmssw-el7 #singularity needed
 
