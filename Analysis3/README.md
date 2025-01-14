@@ -1,4 +1,8 @@
 ## CMSSW setup - ONLY ONCE
+
+First, set up a new working area (separate from what you have been using up to this point)
+to install Combine and CombineHarvester.
+
 ```
 cmssw-el7 #singularity needed
 
@@ -30,8 +34,7 @@ If the directory doesn't exist, create it and copy the output file from Analysis
 ```
 mkdir auxiliaries/
 mkdir auxiliaries/mt/
-cp <file> auxiliaries/mt/	
-
+cp <file> auxiliaries/mt/
 ```
 
 The following steps are to be done each time the analysis selection is changed; remember to copy the output file of Analysis2 under auxiliaries/mt!
@@ -42,7 +45,6 @@ Make the data card (remember to use singularity!)
 cd $CMSSW_BASE/src/
 cmsenv
 python CombineHarvester/CombineTools/scripts/produceDataCard_mt.py
-
 ```
 
 Ensure that data card and root file were made:
@@ -65,4 +67,4 @@ Question: What is the output of this command? What do the values mean?
 
 Question: How does the obtained limit compare to the previously published results [1]? Can these results be directly compared to each other? What is the main difference?  ([1] https://cms-results.web.cern.ch/cms-results/public-results/publications/SUS-21-001/, figs. 4d, 5d, and 6d). 
 
-Extra task: Optimise the analysis selection, and reproduce the limit. How much does the limit improve? Why?
+Extra task: Optimize the analysis selection, and reproduce the limit. How much does the limit improve? Why?

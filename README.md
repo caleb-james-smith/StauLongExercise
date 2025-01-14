@@ -84,11 +84,11 @@ All the places in the code you should modify have a comment starting with CHANGE
 
 ## Part 1 - Make flat trees from NanoAOD
 
+For Part 1, use the code and instructions in the "Analysis" folder [here](https://github.com/caleb-james-smith/StauLongExercise/tree/master/Analysis).
+
 The goal of this part is to make flat trees with a basic preselection (events with one muon and one hadronic tau passing the single muon trigger), saving the variables needed to perform the analysis.
 The flat trees will allow you to be very flexible with the analysis, reanalyzing data with different cuts or observables in only a few minutes.
 You will learn how to run on NanoAOD files, submit the jobs to condor, and implement POG-provided scale factors with correctionlib.
-
-This part is based on the code in the "Analysis" folder [here](https://github.com/caleb-james-smith/StauLongExercise/tree/master/Analysis).
 
 ### Part 1.1: Running the example
 
@@ -170,6 +170,8 @@ First inspect the output obtained from running locally to make sure it is correc
 
 ## Part 2: Analyze the flat trees and make datacards
 
+For Part 2, use the code and instructions in the "Analysis2" folder [here](https://github.com/caleb-james-smith/StauLongExercise/tree/master/Analysis2).
+
 ### Part 2.1: Apply the selection in the mutau final state and make data distributions
 
 Apply the final selection to the flat trees in FinalSelection\_mutau.cc:
@@ -227,9 +229,23 @@ Compare distributions of different variables between the signal and the dominant
 
 ## Part 3: Use Combine to extract the expected limits
 
-Install CombineHarvester and Combine in a separate area following these instructions.
+For Part 3, use the code and instructions in the "Analysis3" folder [here](https://github.com/caleb-james-smith/StauLongExercise/tree/master/Analysis3).
 
-To run Combine for this analysis you need a mutau datacard. In the datacard, you need a directory per signal region (e.g. OSiso), and inside the directory a histogram per process (data has to be called "data\_obs", the naming convention for other processes is free).
+Install Combine and CombineHarvester in a separate area following the instructions [here](https://github.com/caleb-james-smith/StauLongExercise/tree/master/Analysis3).
+
+Note that we are using a different CMSSW version for Combine and CombineHarvester
+compared to what we used previously for the analysis up to this point!
+
+Do NOT "nest" CMSSW installations or install them in "series," please!
+For example, your installation should NOT look like `CMSSW_1_2_3/src/CMSSW_4_5_6/src`.
+Rather, you should install them in parallel.
+For example, `CMSSW_1_2_3/src` and `CMSSW_4_5_6/src`
+should be two separate directories that are not in the same path.
+
+To run Combine for this analysis you need a mutau datacard.
+In the datacard, you need a directory per signal region (e.g. OSiso),
+and inside the directory a histogram per process (data has to be called "data\_obs", the naming convention for other processes is free).
 
 ## Part 4: Use ReAna to make this analysis reinterpretable 
 
+We may attempt this if we have time...
