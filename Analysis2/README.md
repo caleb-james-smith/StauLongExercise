@@ -5,7 +5,7 @@ Code to analyze the flat trees and make plots and datacards.
 ## To run on a flat tree
 
 ```
-mkdir output_mutau_2022
+mkdir -p output_mutau_2022
 ./Make.sh FinalSelection_mutau.cc
 ./FinalSelection_mutau.exe 2022 $CMSSW_BASE/src/cmsdas2025/ntuples_mutau_2022/Muon2022F.root output_mutau_2022/Muon2022F.root data_obs data_obs
 ```
