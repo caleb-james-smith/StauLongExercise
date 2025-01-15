@@ -13,7 +13,7 @@ mkdir output_mutau_2022
 ## To make a data/MC plot from a datacard
 
 ```
-python Draw_mutau.py
+python3 Draw_mutau.py
 ```
 
 ## To run the whole sequence (run on each flat tree, create the fake histogram, make the datacard, draw the distributions):
