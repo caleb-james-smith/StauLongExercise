@@ -114,8 +114,8 @@ Some of the variables already saved for the lepton (muon or tauh) objects are:
 Add the branches that (in DiTau\_analysis.py) will be necessary for the rest of the analysis. We suggest this minimal list with the following naming convention:
 
 - LepCand\_tauvsjet2018 (tau DNN discrimination against jets 2018v2p5 training) 
-- LepCand\_tauvsmu2018 (tau DNN discrimination against jets 2018v2p5 training)
-- LepCand\_tauvse2018 (tau DNN discrimination against jets 2018v2p5 training)
+- LepCand\_tauvsmu2018 (tau DNN discrimination against muons 2018v2p5 training)
+- LepCand\_tauvse2018 (tau DNN discrimination against electrons 2018v2p5 training)
 
 The documentation of the NanoAODv12 branches is available [here](https://cms-nanoaod-integration.web.cern.ch/autoDoc/NanoAODv12/2022/2023/doc_DYJetsToLL_M-50_TuneCP5_13p6TeV-madgraphMLM-pythia8_Run3Summer22NanoAODv12-130X_mcRun3_2022_realistic_v5-v2.html#top).
 
