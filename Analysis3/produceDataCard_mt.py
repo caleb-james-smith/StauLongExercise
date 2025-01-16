@@ -28,7 +28,7 @@ for chn in chns:
     cb.AddProcesses(     ['*'],  [''], ['13TeV'], [chn], bkg_procs[chn], cats[chn+"_13TeV"], False  )
 #CHANGE 3: Add line for the signal process
 
-print '>> Adding systematic uncertainties...'
+print('>> Adding systematic uncertainties...')
 #CHANGE 4: Add the systematic uncertainties also for the chosen signal process
 cb.cp().process({"DY", "TTTo2L2Nu", "WW"}).AddSyst(cb, 'lumi_13TeV', 'lnN', ch.SystMap()(1.03))
 cb.cp().process({"DY", "TTTo2L2Nu", "WW"}).AddSyst(cb, "CMS_eff_m", "lnN", ch.SystMap()(1.02));
@@ -36,9 +36,9 @@ cb.cp().process({"DY", "TTTo2L2Nu", "WW"}).AddSyst(cb, "CMS_eff_t", "lnN", ch.Sy
 
 #CHANGE 5: Add a flat 50% log normal systematic uncertainty for the reducible background
 
-print '>> Extracting histograms from input root files...'
+print('>> Extracting histograms from input root files...')
 for chn in chns:
-    file = auxiliaries + chn + "/datacard_mutau_new.root" 
+    file = auxiliaries + chn + "/datacard_mutau.root" 
     cb.cp().channel([chn]).era(['13TeV']).backgrounds().ExtractShapes(
         file, '$BIN/$PROCESS', '$BIN/$PROCESS_$SYSTEMATIC')
     #CHANGE 6: Extract the histograms of signal
