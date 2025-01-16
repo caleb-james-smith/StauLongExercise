@@ -17,6 +17,28 @@ Add the following alias `use_sl7` to `~/.bash_profile`.
 # Use SL7 container
 alias use_sl7='cmssw-el7 -p --bind `readlink $HOME` --bind `readlink -f ${HOME}/nobackup/` --bind /uscms_data --bind /cvmfs --bind /uscmst1b_scratch -- /bin/bash -l'
 ```
+
+You can also add the following to `~/.bash_profile` to modify your prompts (optional):
+```
+# used to show git branch in prompt
+parse_git_branch ()
+{
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+# make sure function works for apptainer (e.g. SL7 container)
+export -f parse_git_branch
+
+
+# command prompt
+export PS1='\[\e[32m\]${HOSTNAME}\[\e[0;36m\] \W \[\e[01;34m\]#\[\e[m\]$(parse_git_branch)\[\033[00m\] \[\e[1;00m\]'
+
+# use a similar prompt for apptainer (e.g. SL7 container)
+# - note that you need to escape $ with \$ (will not work otherwise)
+# - replaced # with "*" (quotes are required to prevent expansion)
+export APPTAINERENV_PS1='\[\e[32m\]\${HOSTNAME}\[\e[0;36m\] \W \[\e[01;34m\]"*"\[\e[m\]\$(parse_git_branch)\[\033[00m\] \[\e[1;00m\]'
+```
+
 Then do
 ```
 source ~/.bash_profile
