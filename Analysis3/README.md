@@ -62,6 +62,8 @@ cd $CMSSW_BASE/src/HiggsAnalysis/CombinedLimit
 git fetch origin
 git checkout v9.2.1
 
+# Make sure to run scramv1 from the CMSSW_11_3_4/src directory!!
+cd $CMSSW_BASE/src
 scramv1 b clean; scramv1 b # always make a clean build
 ```
 
