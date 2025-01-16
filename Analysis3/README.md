@@ -12,9 +12,24 @@ Rather, you should install them in parallel.
 For example, `CMSSW_1_2_3/src` and `CMSSW_4_5_6/src`
 should be two separate directories that are not in the same path.
 
+Add the following alias `use_sl7` to `~/.bash_profile`.
 ```
-cmssw-el7 #singularity needed
+# Use SL7 container
+alias use_sl7='cmssw-el7 -p --bind `readlink $HOME` --bind `readlink -f ${HOME}/nobackup/` --bind /uscms_data --bind /cvmfs --bind /uscmst1b_scratch -- /bin/bash -l'
+```
+Then do
+```
+source ~/.bash_profile
+```
 
+```
+# Use SL7 container
+use_sl7
+
+# Set SCRAM_ARCH for SL7
+export SCRAM_ARCH=slc7_amd64_gcc700
+
+# Set up CMSSW
 cmsrel CMSSW_11_3_4
 cd CMSSW_11_3_4/src
 cmsenv
