@@ -65,11 +65,12 @@ c.cd()
 
 file=ROOT.TFile("datacard_mutau.root","r")
 
-Data=file.Get("OSiso").Get("data_obs")
-TT=file.Get("OSiso").Get("TTTo2L2Nu")
-VV=file.Get("OSiso").Get("WW")
-DY=file.Get("OSiso").Get("DY")
-Fake=file.Get("OSiso").Get("Fake")
+root_directory = "OSiso"
+Data=file.Get(root_directory).Get("data_obs")
+TT=file.Get(root_directory).Get("TTTo2L2Nu")
+VV=file.Get(root_directory).Get("WW")
+DY=file.Get(root_directory).Get("DY")
+Fake=file.Get(root_directory).Get("Fake")
 #CHANGE: add other contributions (DY, fake, ...)
 
 Data.GetXaxis().SetTitle("")

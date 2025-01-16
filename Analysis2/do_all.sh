@@ -1,6 +1,7 @@
 # CHANGE replace with the location of your ntuples
 #DATA_DIR=/uscms/home/caleb/nobackup/CMSDAS_2025/StauLongExercise/ntuples_mutau_2022_v0
-DATA_DIR=/uscms/home/caleb/nobackup/CMSDAS_2025/StauLongExercise/ntuples_mutau_2022_v1
+#DATA_DIR=/uscms/home/caleb/nobackup/CMSDAS_2025/StauLongExercise/ntuples_mutau_2022_v1
+DATA_DIR=/uscms/home/peter802/nobackup/CMSDAS_2025/StauLongExercise/CMSSW_13_0_10/src/cmsdas2025/ntuples_mutau_2022
 
 mkdir -p output_mutau_2022
 
