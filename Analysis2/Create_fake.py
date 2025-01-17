@@ -22,6 +22,7 @@ def make_fakes(dir_name, anti_dir_name):
     
     hfake = h0.Clone()
     hfake.Add(hsum, -1)
+    hfake.Scale(.08)
 
     fout.cd()
     dir0.cd()
@@ -30,5 +31,7 @@ def make_fakes(dir_name, anti_dir_name):
     return
 
 make_fakes("OSiso", "OSanti")
-#make_fakes("dz_mu", "anti_dz_mu")
-
+make_fakes("dz_mu", "dz_mu_anti")
+make_fakes("dnn_tauvsjet", "dnn_tauvsjet_anti")
+make_fakes("dnn_tauvsmu", "dnn_tauvsmu_anti")
+make_fakes("dnn_tauvse", "dnn_tauvse_anti")
