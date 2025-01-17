@@ -12,9 +12,46 @@ Rather, you should install them in parallel.
 For example, `CMSSW_1_2_3/src` and `CMSSW_4_5_6/src`
 should be two separate directories that are not in the same path.
 
+Add the following alias `use_sl7` to `~/.bash_profile`.
 ```
-cmssw-el7 #singularity needed
+# Use SL7 container
+alias use_sl7='cmssw-el7 -p --bind `readlink $HOME` --bind `readlink -f ${HOME}/nobackup/` --bind /uscms_data --bind /cvmfs --bind /uscmst1b_scratch -- /bin/bash -l'
+```
 
+You can also add the following to `~/.bash_profile` to modify your prompts (optional):
+```
+# used to show git branch in prompt
+parse_git_branch ()
+{
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+# make sure function works for apptainer (e.g. SL7 container)
+export -f parse_git_branch
+
+
+# command prompt
+export PS1='\[\e[32m\]${HOSTNAME}\[\e[0;36m\] \W \[\e[01;34m\]#\[\e[m\]$(parse_git_branch)\[\033[00m\] \[\e[1;00m\]'
+
+# use a similar prompt for apptainer (e.g. SL7 container)
+# - note that you need to escape $ with \$ (will not work otherwise)
+# - replaced # with "*" (quotes are required to prevent expansion)
+export APPTAINERENV_PS1='\[\e[32m\]\${HOSTNAME}\[\e[0;36m\] \W \[\e[01;34m\]"*"\[\e[m\]\$(parse_git_branch)\[\033[00m\] \[\e[1;00m\]'
+```
+
+Then do
+```
+source ~/.bash_profile
+```
+
+```
+# Use SL7 container
+use_sl7
+
+# Set SCRAM_ARCH for SL7
+export SCRAM_ARCH=slc7_amd64_gcc700
+
+# Set up CMSSW
 cmsrel CMSSW_11_3_4
 cd CMSSW_11_3_4/src
 cmsenv
@@ -25,6 +62,8 @@ cd $CMSSW_BASE/src/HiggsAnalysis/CombinedLimit
 git fetch origin
 git checkout v9.2.1
 
+# Make sure to run scramv1 from the CMSSW_11_3_4/src directory!!
+cd $CMSSW_BASE/src
 scramv1 b clean; scramv1 b # always make a clean build
 ```
 
